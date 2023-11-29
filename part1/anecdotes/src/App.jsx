@@ -14,6 +14,7 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
   const [vote, setVote] = useState(new Array(8).fill(0));
+  let max = 0;
 
   const handleClick = () => {
     const random = Math.floor(Math.random() * 8);
@@ -26,13 +27,25 @@ const App = () => {
     setVote(newVote);
   };
 
+  for (let j of vote) {
+    if (j > max) {
+      max = j;
+    }
+  }
+
+  let maxIndex = vote.indexOf(max);
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <br />
       <p>has {vote[selected]} vote(s)</p>
       <button onClick={handleVote}>vote</button>
       <button onClick={handleClick}>next anecdotes</button>
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[maxIndex]}
+      <p>has {vote[maxIndex]} vote(s)</p>
     </div>
   );
 };
